@@ -6,8 +6,7 @@ import json
 
 logging.basicConfig(level=logging.ERROR)
 
-client = ari.connect('http://localhost:8088/', 'mell', '123456')
-
+client = ari.connect('http://10.248.52.139:8088/', 'mell', '123456')
 def on_dtmf(channel, event):
     digit = event['digit']
     if digit == '#':
@@ -17,6 +16,7 @@ def on_dtmf(channel, event):
         channel.play(media='sound:asterisk-friend')
     else:
         channel.play(media='sound:digits/%s' % digit)
+
 
 
 def on_start(channel, event):
