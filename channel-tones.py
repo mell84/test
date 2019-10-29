@@ -1,5 +1,8 @@
 #!/usr/bin/env python
-
+# -*- coding: utf-8 -*-
+#
+#Принимаем звонок, играем гудки 8 секунд, пототм делаем hangup
+#
 import ari
 import logging
 import threading
@@ -27,7 +30,8 @@ def stasis_start_cb(channel_obj, ev):
 
     def answer_channel(channel, playback):
         """Callback that will actually answer the channel"""
-
+        # print channel.id
+        # channel.play(media='sound:asterisk-friend')
         print "Answering channel %s" % channel.json.get('name')
         playback.stop()
         channel.answer()
@@ -38,7 +42,6 @@ def stasis_start_cb(channel_obj, ev):
 
     def hangup_channel(channel):
         """Callback that will actually hangup the channel"""
-
         print "Hanging up channel %s" % channel.json.get('name')
         channel.hangup()
 
@@ -46,8 +49,9 @@ def stasis_start_cb(channel_obj, ev):
     print "Channel %s has entered the application" % channel.json.get('name')
 
     playback_id = str(uuid.uuid4())
+    # print(playback_id)
     playback = channel.playWithId(playbackId=playback_id,
-                                  media='tone:ring;tonezone=fr')
+                                  media='tone:ring') #;tonezone=ru')
     timer = threading.Timer(8, answer_channel, [channel, playback])
     channel_timers[channel.id] = timer
     timer.start()
