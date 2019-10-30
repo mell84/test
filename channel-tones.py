@@ -50,8 +50,9 @@ def stasis_start_cb(channel_obj, ev):
 
     playback_id = str(uuid.uuid4())
     # print(playback_id)
+    print "Playing beep tones to channel: %s" % channel.json.get('name')
     playback = channel.playWithId(playbackId=playback_id,
-                                  media='tone:ring') #;tonezone=ru')
+                                  media='tone:ring')
     timer = threading.Timer(8, answer_channel, [channel, playback])
     channel_timers[channel.id] = timer
     timer.start()
